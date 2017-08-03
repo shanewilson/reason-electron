@@ -22,8 +22,8 @@
     "electron": "electron .",
     "electron-wait-react": "node src/electron-wait-react",
     "pack": "electron-builder --dir",
-    "dist": "npm run build && build",
-    "ppostinstall": "electron-builder install-app-deps"
+    "dist": "npm run build && electron-builder",
+    "install-app-deps": "electron-builder install-app-deps"
   },
   "build": {
     "appId": "com.electron.reason-electron",

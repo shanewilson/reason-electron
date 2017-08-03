@@ -9,6 +9,8 @@ install:
   - ps: Install-Product node $env:node_version x64
   - set CI=true
   - npm install
+  - npm install electron-builder@19.19.1
+  - npm run install-app-deps
 
 test_script:
   - npm test

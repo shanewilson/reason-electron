@@ -6,7 +6,19 @@ node_js: 8
 cache:
   directories:
   - node_modules
+  - "$HOME/.electron"
+  - "$HOME/.cache"
 notification:
   email: false
-script:
-  - npm test
+install:
+  - npm install
+  - npm install electron-builder@19.19.1
+  - npm run install-app-deps
+jobs:
+  include:
+    - stage: test
+      script:
+        - npm test || travis_terminate 1
+    - stage: build
+      script:
+        - echo "build electron here"
