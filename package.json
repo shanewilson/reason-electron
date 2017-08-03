@@ -1,0 +1,34 @@
+{
+  "name": "reason-electron",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "./",
+  "main": "src/electron-starter.js",
+  "devDependencies": {
+    "bs-jest": "^0.1.0",
+    "bs-platform": "^1.8.2",
+    "reason-react": "^0.2.3",
+    "reason-scripts": "0.6.4",
+    "reasonably-typed": "^0.10.0"
+  },
+  "dependencies": {
+    "react": "^16.0.0-beta.2",
+    "react-dom": "^16.0.0-beta.2"
+  },
+  "scripts": {
+    "start": "BROWSER=none react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "electron": "electron .",
+    "electron-wait-react": "node src/electron-wait-react",
+    "pack": "electron-builder --dir",
+    "dist": "npm run build && build",
+    "ppostinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "com.electron.reason-electron",
+    "directories": {
+      "buildResources": "public"
+    }
+  }
+}
