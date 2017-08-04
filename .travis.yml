@@ -47,9 +47,8 @@ branches:
 
 install:
 # - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then npm install; npm install electron-builder@next; fi
-- opam init
+- opam init --bare
 - opam update
-- opam switch 4.02.3+buckle-master
 - eval `opam config env`
 - npm install
 
