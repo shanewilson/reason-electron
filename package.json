@@ -3,10 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "./",
+  "author": {
+    "name": "Shane Wilson"
+  },
+  "description": "Web/Electron ReasonML CRA",
   "main": "src/electron-starter.js",
   "devDependencies": {
     "bs-jest": "^0.1.0",
     "bs-platform": "^1.8.2",
+    "electron": "^1.6.11",
     "reason-react": "^0.2.3",
     "reason-scripts": "0.6.4",
     "reasonably-typed": "^0.10.0"
@@ -21,14 +26,26 @@
     "test": "react-scripts test --env=jsdom",
     "electron": "electron .",
     "electron-wait-react": "node src/electron-wait-react",
-    "pack": "electron-builder --dir",
-    "dist": "npm run build && build",
-    "ppostinstall": "electron-builder install-app-deps"
+    "dist:linux": "npm run build && electron-builder --linux",
+    "dist:mac": "npm run build && electron-builder --macos",
+    "dist:win": "npm run build && electron-builder --win"
   },
   "build": {
     "appId": "com.electron.reason-electron",
     "directories": {
       "buildResources": "public"
+    },
+    "mac": {
+      "category": "public.app-category.science"
+    },
+    "linux": {
+      "target": [
+        "tar.gz",
+        "AppImage"
+      ],
+      "desktop": {
+        "Category": "Science;Development;"
+      }
     }
   }
 }

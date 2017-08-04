@@ -1,12 +1,60 @@
----
 git:
   depth: 1
+
 language: node_js
+
 node_js: 8
+
+env:
+  global:
+  - ELECTRON_CACHE=$HOME/.cache/electron
+  - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+
+matrix:
+  include:
+  - os: linux
+    dist: trusty
+    sudo: required
+    services:
+    - docker
+    before_install:
+    - sudo add-apt-repository ppa:avsm/ppa -y
+    - sudo apt-get update -q
+    - sudo apt-get install ocaml ocaml-native-compilers camlp4-extra opam -y
+  - os: osx
+    osx_image: xcode8.3
+    before_install:
+    - brew update
+    - brew install opam
+
 cache:
   directories:
   - node_modules
+  - $HOME/.cache/electron
+  - $HOME/.cache/electron-builder
+  - $HOME/.npm/_prebuilds
+
 notification:
   email: false
+
+branches:
+  except:
+    - "/^v\\d+\\.\\d+\\.\\d+$/"
+
+
+# before_install:
+# - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then docker pull electronuserland/electron-builder:wine; fi
+
+install:
+# - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then npm install; npm install electron-builder@next; fi
+- opam init --no-setup
+- opam update
+- eval `opam config env`
+- npm install
+
 script:
-  - npm test
+# - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then docker run --rm -ti -e GH_TOKEN=$GH_TOKEN --env-file <(env | grep TRAVIS) -v ${PWD}:/project -v ${PWD##*/}-node-modules:/project/node_modules -v ~/.electron:/root/.electron electronuserland/electron-builder:wine /bin/bash -c "npm install && npm install electron-builder@next && npm run dist:linux"; fi
+# - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then docker run --rm -ti -e GH_TOKEN=$GH_TOKEN --env-file <(env | grep TRAVIS) -v ${PWD}:/project -v ${PWD##*/}-node-modules:/project/node_modules -v ~/.electron:/root/.electron electronuserland/electron-builder:wine /bin/bash -c "npm install && npm install electron-builder@next && npm run dist:win"; fi
+# - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then npm run dist:mac; fi
+- npm test
+- npm run build
