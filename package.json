@@ -25,7 +25,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "electron": "electron .",
-    "electron-wait-react": "node src/electron-wait-react"
+    "electron-wait-react": "node src/electron-wait-react",
+    "dist:linux": "npm run build && electron-builder --linux",
+    "dist:mac": "npm run build && electron-builder --macos",
+    "dist:win": "npm run build && electron-builder --win"
   },
   "build": {
     "appId": "com.electron.reason-electron",
@@ -33,7 +36,16 @@
       "buildResources": "public"
     },
     "mac": {
-      "category": "public.app-category.productivity"
+      "category": "public.app-category.science"
+    },
+    "linux": {
+      "target": [
+        "tar.gz",
+        "AppImage"
+      ],
+      "desktop": {
+        "Category": "Science;Development;"
+      }
     }
   }
 }
