@@ -18,7 +18,9 @@ matrix:
     services:
     - docker
     before_install:
-    - sudo apt-get install opam
+    - sudo add-apt-repository ppa:avsm/ppa -y
+    - sudo apt-get update -q
+    - sudo apt-get install ocaml ocaml-native-compilers camlp4-extra opam -y
   - os: osx
     osx_image: xcode8.3
     before_install:
