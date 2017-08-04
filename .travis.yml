@@ -18,15 +18,12 @@ matrix:
     services:
     - docker
     before_install:
-    - opam --version
+    - apt-get install opam
   - os: osx
     osx_image: xcode8.3
     before_install:
     - brew update
     - brew install opam
-    - opam update
-    - opam switch 4.02.3+buckle-master
-    - eval `opam config env`
 
 cache:
   directories:
@@ -46,8 +43,12 @@ branches:
 # before_install:
 # - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then docker pull electronuserland/electron-builder:wine; fi
 
-# install:
+install:
 # - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then npm install; npm install electron-builder@next; fi
+- opam update
+- opam switch 4.02.3+buckle-master
+- eval `opam config env`
+- npm install
 
 script:
 # - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then docker run --rm -ti -e GH_TOKEN=$GH_TOKEN --env-file <(env | grep TRAVIS) -v ${PWD}:/project -v ${PWD##*/}-node-modules:/project/node_modules -v ~/.electron:/root/.electron electronuserland/electron-builder:wine /bin/bash -c "npm install && npm install electron-builder@next && npm run dist:linux"; fi
