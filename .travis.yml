@@ -18,7 +18,7 @@ matrix:
     services:
     - docker
     before_install:
-    - apt-get install opam
+    - sudo apt-get install opam
   - os: osx
     osx_image: xcode8.3
     before_install:
