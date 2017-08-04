@@ -36,7 +36,7 @@ branches:
 
 install:
   - npm install
-  - npm install electron-builder@next
+  - npm install --no-save electron-builder@next
 
 script:
   - npm test || travis_terminate 1
