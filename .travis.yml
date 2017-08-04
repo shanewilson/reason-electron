@@ -17,8 +17,16 @@ matrix:
     sudo: required
     services:
     - docker
+    before_install:
+    - opam --version
   - os: osx
     osx_image: xcode8.3
+    before_install:
+    - brew update
+    - brew install opam
+    - opam update
+    - opam switch 4.02.3+buckle-master
+    - eval `opam config env`
 
 cache:
   directories:
